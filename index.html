@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Allira Bill | Graphic Designer</title>
+  <meta name="description" content="Allira Bill is a graphic designer and landscape architect based in Amsterdam.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Fixed left column -->
+  <aside class="sidebar">
+    <div class="intro">
+      <img class="blob" src="images/flower.png" alt="" aria-hidden="true">
+      <div class="intro-text">
+        <h1 class="name">Allira Bill</h1>
+        <p class="tagline">I'm a Graphic Designer and Landscape Architect based in Amsterdam, The Netherlands.</p>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Main">
+      <a href="#home" data-target="home" class="nav-home">Home</a>
+      <a href="#projects" data-target="projects" class="nav-projects">Projects</a>
+      <a href="#about" data-target="about" class="nav-about">About</a>
+    </nav>
+
+    <div class="bio">
+      <p>I enjoy exploring ideas, experimenting with different visual approaches and bringing concepts to life through thoughtful design. My work moves between the physical and digital, with a curiosity for visual storytelling, composition and creative problem-solving.</p>
+      <img class="badge" src="images/2026.png" alt="2026">
+    </div>
+
+    <!-- Filled in by script.js when a project is open -->
+    <div class="project-info" id="project-info"></div>
+  </aside>
+
+  <!-- Tall element that gives the page its scroll length (height set in script.js) -->
+  <main class="scroller" id="home">
+    <div class="stage">
+      <div class="track" id="projects">
+
+        <!-- --x = left (vw), --y = top (% of stage), --w = width (vw). data-speed = parallax: <1 slower, >1 faster -->
+        <figure class="item" data-speed="1.0" data-project="early-life" style="--x:3; --y:15; --w:15.5">
+          <button type="button" class="item-open">
+            <img src="images/Image-1.png" alt="Editorial collage with the words David Carson and early life" loading="lazy">
+          </button>
+          <figcaption>Publishing &amp; Media (2026)</figcaption>
+        </figure>
+
+        <figure class="item" data-speed="1.25" data-project="home-fields" style="--x:12; --y:57; --w:11.9">
+          <button type="button" class="item-open">
+            <img src="images/Image-2.png" alt="Home Fields long grain rice packaging" loading="lazy">
+          </button>
+          <figcaption>Brand Identity &amp; Packaging (2026)</figcaption>
+        </figure>
+
+        <figure class="item" data-speed="1.12" data-project="bottle-label" style="--x:29.4; --y:38; --w:10.3">
+          <button type="button" class="item-open">
+            <img src="images/Image-3.png" alt="Bottle with a custom label resting on a rock" loading="lazy">
+          </button>
+          <figcaption>Packaging (2025)</figcaption>
+        </figure>
+
+        <figure class="item" data-speed="0.88" data-project="miss-bloem" style="--x:40; --y:19; --w:18.5">
+          <button type="button" class="item-open">
+            <img src="images/Image-4.png" alt="Website design shown on a laptop" loading="lazy">
+          </button>
+          <figcaption>Rebrand (2025)</figcaption>
+        </figure>
+
+        <figure class="item" data-speed="1.2" data-project="fiesta-de-verano" style="--x:51; --y:59; --w:16.5">
+          <button type="button" class="item-open">
+            <img src="images/Image-5.png" alt="Fiesta de Verano festival poster" loading="lazy">
+          </button>
+          <figcaption>Layout (2025)</figcaption>
+        </figure>
+
+        <figure class="item" data-speed="1.0" data-project="connect-the-dots" style="--x:72; --y:24; --w:20.5">
+          <button type="button" class="item-open">
+            <img src="images/Image-6.jpg" alt="Three campaign posters pinned to a wall" loading="lazy">
+          </button>
+          <figcaption>Campaign (2026)</figcaption>
+        </figure>
+
+        <figure class="item" data-speed="1.15" data-project="colour-studies" style="--x:77.4; --y:59; --w:12.7">
+          <button type="button" class="item-open">
+            <img src="images/Image-7.jpg" alt="Abstract painted texture in bright colours" loading="lazy">
+          </button>
+          <figcaption>Visual Experimentation (2025)</figcaption>
+        </figure>
+
+        <section class="about-panel" id="about">
+          <div class="about-art" data-speed="1.15">
+            <img class="about-flower" src="images/flower-white.png" alt="" aria-hidden="true">
+            <img class="about-photo" src="images/about.jpg" alt="Portrait of Allira Bill">
+          </div>
+          <div class="about-text">
+            <h2>Hi! My name is Lira</h2>
+            <p>I'm a creative, curious designer with a background in Landscape Architecture and more recently, I completed a Diploma of Graphic Design. I've always had a genuine passion for design, problem-solving, and understanding how people interact with the world around them.</p>
+            <p>My experience working in Landscape Architecture has taught me to look at things from different perspectives, think both creatively and practically, and turn ideas into thoughtful, meaningful outcomes. I love learning, exploring new ways of doing things, and challenging myself to step outside of what I already know.</p>
+            <p>I'm a firm believer that good design is about more than how something looks; it's about how it communicates, how people experience it, and the thought behind it. I enjoy getting stuck into a problem, asking questions, and figuring out how to make something work better.</p>
+            <p>I'm excited to keep expanding my skillset, explore different areas of design, and create work that is both considered and a little bit different.</p>
+          </div>
+          <p class="about-contact">Feel free to get in touch <a href="mailto:allirabill@hotmail.com">here</a></p>
+        </section>
+
+      </div>
+      <p class="hint" aria-hidden="true">scroll to explore</p>
+    </div>
+  </main>
+
+  <!-- Project window -->
+  <div class="project-view" id="project-view" role="dialog" aria-label="Project details">
+    <div class="pv-bar">
+      <button type="button" class="pv-close" id="pv-close" aria-label="Close project">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 2 L14 14 M14 2 L2 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>
+      </button>
+    </div>
+    <div class="pv-body" id="pv-body">
+      <div class="pv-info-mobile" id="pv-info-mobile"></div>
+      <div class="pv-gallery" id="pv-gallery"></div>
+    </div>
+  </div>
+
+  <script src="projects.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

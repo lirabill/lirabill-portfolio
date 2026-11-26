@@ -1,0 +1,194 @@
+/* ---------- Fonts ---------- */
+/* Put your Panchang file at fonts/Panchang-Bold.ttf (rename the path below if yours differs) */
+@font-face {
+  font-family: "Panchang";
+  src: url("fonts/Panchang-Variable.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- Tokens ---------- */
+:root {
+  --bg: #fffffa;
+  --text: #111111;
+  --green: #c3d179;   /* About page background */
+
+  --font-display: "Panchang", system-ui, sans-serif;
+  --font-body: "Anonymous Pro", ui-monospace, monospace;
+
+  --fs-name: 24px;   /* heading */
+  --fs-text: 12px;   /* nav buttons */
+  --fs-body: 10px;   /* body text, tagline, captions */
+
+  --sidebar-w: clamp(320px, 24vw, 380px);
+  --pad: 2rem;
+  --pv-margin: clamp(3.5rem, 9vw, 10rem);   /* project page side margins */
+  --lift: 1.5rem;    /* raises the right-hand side: projects and the scroll hint */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;              /* no native scrolling, so nothing can bounce */
+  overscroll-behavior: none;
+  background: var(--bg);
+}
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  color: var(--text);
+}
+img { display: block; width: 100%; height: auto; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+  position: fixed; inset: 0 auto 0 0; z-index: 5;
+  width: var(--sidebar-w);
+  padding: 1rem calc(var(--sidebar-w) * 0.19) 2.5rem calc(var(--sidebar-w) * 0.26);   /* top, right, bottom, left: narrows the text column */
+  display: flex; flex-direction: column; justify-content: flex-start; gap: 0;
+  overflow-y: auto;
+}
+
+.intro { position: relative; width: 100%; aspect-ratio: 1 / 1.157; }
+.blob { position: absolute; top: 0; left: -35.5%; width: 125.4%; height: auto; pointer-events: none; }   /* sticks out left of the text column */
+.intro-text { position: absolute; left: 0; right: 0; top: 27%; }
+.name {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-display); font-weight: 700;
+  font-size: var(--fs-name);
+  line-height: 1; text-transform: uppercase; white-space: nowrap;
+}
+.tagline { margin: 0; text-align: justify; }
+
+.nav {
+  margin-top: 0.5rem;   /* flower to nav */
+  display: grid; grid-template-columns: auto auto; gap: 0.6rem 1rem; justify-content: space-between;
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-text); text-transform: uppercase;
+}
+.nav a { text-decoration: none; justify-self: end; }
+.nav .nav-home { grid-column: 1; grid-row: 1; justify-self: start; }
+.nav .nav-projects { grid-column: 2; grid-row: 1; }
+.nav .nav-about { grid-column: 2; grid-row: 2; }
+.nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.bio { margin-top: 4.5rem; }   /* nav to bio paragraph */
+.bio p { margin: 0 0 1rem; text-align: justify; hyphens: auto; }
+.badge { display: block; width: 60px; height: auto; margin-left: auto; }
+
+/* ---------- Horizontal stage (desktop) ---------- */
+.scroller { position: fixed; inset: 0 0 0 var(--sidebar-w); }
+.stage { position: absolute; inset: 0; overflow: hidden; touch-action: none; }
+.track { position: absolute; inset: 0 auto 0 0; width: 150vw; will-change: transform; }
+
+.item {
+  position: absolute; margin: 0;
+  left: calc(var(--x) * 1vw);
+  top: calc(var(--y) * 1% - var(--lift));   /* --lift raises the projects */
+  width: calc(var(--w) * 1vw);
+  will-change: transform;
+}
+.item figcaption { margin-top: 0.5rem; white-space: nowrap; }
+.item[data-project] { cursor: pointer; }
+/* First project lines up with the name: sidebar top padding + the name's distance down the flower */
+.item[data-project="early-life"] { top: calc(1rem + var(--sidebar-w) * 0.172); }
+/* Miss Bloem caption sits at the right edge so the bottle image doesn't cover it */
+.item[data-project="miss-bloem"] figcaption { text-align: right; }
+.item[data-project]:hover figcaption { text-decoration: underline; text-underline-offset: 3px; }
+.item-open { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
+
+/* ---------- About page (green, last screen of the scroll) ---------- */
+/* Fills exactly the area to the right of the sidebar. Positions inside are % of that area. */
+.about-panel {
+  position: absolute; left: 102vw; top: 0; bottom: 0;
+  width: calc(100vw - var(--sidebar-w));
+  background: var(--green); overflow: hidden;
+}
+.about-art { position: absolute; left: 36%; top: 37%; width: 38%; aspect-ratio: 596 / 550; translate: -50% -50%; will-change: transform; }   /* left/top = flower centre; width = flower size */
+.about-flower { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.about-photo { position: absolute; left: 49.9%; top: 48.3%; width: 40%; aspect-ratio: 103 / 114; object-fit: cover; transform: translate(-50%, -50%); background: #ebe8da; }   /* centred on the flower; width = % of flower */
+.about-text { position: absolute; left: 45.6%; top: 15%; width: 34%; }
+.about-text h2 {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-name);
+  line-height: 1.1; text-transform: uppercase;
+}
+.about-text p { margin: 0 0 1em; text-align: justify; hyphens: auto; }
+.about-contact {
+  position: absolute; left: 45.6%; top: 73%; margin: 0;
+  font-family: var(--font-display); font-weight: 700; font-size: var(--fs-body); text-transform: uppercase;
+}
+.about-contact a { text-decoration: underline; text-underline-offset: 3px; }
+.about-contact a:hover { opacity: 0.6; }
+
+.hint { position: absolute; left: var(--pad); bottom: calc(1.5rem + var(--lift)); margin: 0; transition: opacity 0.4s; }
+.stage.scrolled .hint { opacity: 0; }
+
+/* ---------- Project window + sidebar description ---------- */
+body.project-open { overflow: hidden; }
+
+.project-info { display: none; margin-top: 1.75rem; }   /* sits close under the nav so the text fits without scrolling */
+body.project-open .bio { display: none; }
+body.project-open .project-info { display: block; }
+.pi-title { margin: 0 0 0.4rem; font-size: var(--fs-body); font-weight: 700; line-height: 1.5; }
+.pi-name { margin: 0 0 1rem; font-size: var(--fs-body); font-weight: 700; line-height: 1.5; }
+.pi-sub { margin: 1.25rem 0 0.4rem; font-family: var(--font-display); font-weight: 700; font-size: var(--fs-body); line-height: 1.2; text-transform: uppercase; }
+.pi-title + .pi-text { margin-top: 1rem; }
+.pi-text p { margin: 0 0 0.75rem; text-align: justify; hyphens: auto; }
+.pi-details { margin: 1rem 0 0; display: grid; gap: 0.25rem; }
+.pi-details div { display: block; }
+.pi-details dt { font-weight: 700; }
+.pi-details dt::after { content: ":"; }
+.pi-details dd { margin: 0; }
+
+.project-view {
+  position: fixed; z-index: 8;
+  inset: 0 0 0 var(--sidebar-w);   /* top, right, bottom, left: fills everything right of the sidebar */
+  display: flex; flex-direction: column;
+  background: var(--bg);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.25s, visibility 0s 0.25s;
+}
+.project-view.open { opacity: 1; visibility: visible; transition: opacity 0.25s; }
+.pv-bar { position: absolute; top: 1.5rem; right: var(--pad); z-index: 1; }
+.pv-close {
+  display: grid; place-items: center; width: 2rem; height: 2rem; padding: 0;
+  border: 0; background: none; color: inherit; cursor: pointer;
+}
+.pv-close:hover { opacity: 0.55; }
+.pv-body { flex: 1; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable both-edges; padding: 4.5rem var(--pv-margin) 4rem; }   /* --pv-margin = side margins around the images: bigger = smaller images */
+.pv-gallery { display: grid; grid-template-columns: repeat(12, 1fr); column-gap: 1rem; row-gap: 3rem; align-items: start; width: 100%; }
+.pv-gallery figure { margin: 0; }
+.pv-ph { width: 100%; background: #ebe8da; }
+.pv-gallery figcaption { margin-top: 0.5rem; }
+.pv-info-mobile { display: none; }
+
+/* ---------- Small screens: normal vertical page ---------- */
+@media (max-width: 800px) {
+  html, body { height: auto; overflow: auto; overscroll-behavior: auto; }
+  .sidebar { position: static; width: 100%; overflow: visible; gap: 2rem; padding: 2rem var(--pad) 0 7rem; }
+  .scroller { position: static; padding: 1rem var(--pad) 4rem; }
+  .stage { position: static; overflow: visible; touch-action: auto; }
+  .track { position: static; width: auto; display: grid; gap: 2.5rem; transform: none !important; }
+  .item { position: static; width: min(100%, 26rem); transform: none !important; }
+  .about-panel { position: static; width: auto; margin: 2rem calc(var(--pad) * -1) -4rem; padding: 2rem var(--pad) 4rem; }
+  .about-flower { display: none; }
+  .about-art { position: static; width: auto; aspect-ratio: auto; translate: none; transform: none !important; }
+  .about-text, .about-contact { position: static; width: auto; }
+  .about-photo { position: static; transform: none; width: 50%; margin-bottom: 1.5rem; }
+  .about-text { margin-bottom: 1.5rem; }
+  .hint { display: none; }
+  .project-view { inset: 0; }
+  .pv-info-mobile { display: block; margin-bottom: 1.5rem; }
+  .pv-body { padding: 4.5rem var(--pad) var(--pad); }
+  .pv-gallery { row-gap: 1.5rem; }
+  .pv-gallery figure { grid-column: 1 / -1 !important; grid-row: auto !important; margin-top: 0 !important; }
+  body.project-open .project-info { display: none; }
+  body.project-open .bio { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) { .hint, .project-view, .project-view.open { transition: none; } }
